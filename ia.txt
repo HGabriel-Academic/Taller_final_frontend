@@ -1,0 +1,47 @@
+Comandos y pasos para inicializar proyecto React con Vite y TailwindCSS
+
+1. Crear el proyecto con Vite + React:
+
+npm create vite@latest my-app -- --template react
+cd my-app
+
+2. Instalar TailwindCSS y dependencias:
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+3. Configurar TailwindCSS:
+
+- En tailwind.config.js:
+  module.exports = {
+    content: [
+      './index.html',
+      './src/**/*.{js,ts,jsx,tsx}',
+    ],
+    theme: {
+      extend: {},
+    },
+    plugins: [],
+  }
+
+- En src/index.css (o el CSS global usado por Vite):
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+4. Estructura sugerida de carpetas:
+
+src/
+  components/
+  hooks/
+  pages/
+  utils/
+
+5. Verificar que la app corre en local:
+
+npm install
+npm run dev
+
+Commit inicial sugerido:
+
+init: inicializa proyecto React con Vite y configura TailwindCSS
