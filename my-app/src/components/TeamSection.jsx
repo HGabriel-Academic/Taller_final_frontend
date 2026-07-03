@@ -1,12 +1,12 @@
-import React from 'react'
-
-export default function TeamSection(){
+export default function TeamSection() {
   return (
     <div>
-      <div className="panel-title">Integrantes</div>
-      <div>
-        <textarea defaultValue={"Nombre 1\nNombre 2"} rows={6} style={{width:'100%',borderRadius:8,border:'1px solid #e5e7eb',padding:8}} />
-      </div>
+      <h2 className="mb-3 text-lg font-semibold text-slate-900">Integrantes</h2>
+      <textarea
+        defaultValue={"Nombre 1\nNombre 2"}
+        rows={6}
+        className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-red-400"
+      />
     </div>
   )
 }

@@ -1,47 +1,29 @@
-Comandos y pasos para inicializar proyecto React con Vite y TailwindCSS
+Primer commit
+--------------------
+=== Etapa 1 ===
+Prompt: "crea la estructura de carpetas para un proyecto React con Vite"
+Resultado: me generó la estructura pero sin la carpeta data/, la tuve que crear yo.
+Utilidad: parcialmente útil.
 
-1. Crear el proyecto con Vite + React:
+=== Etapa 2 ===
+Prompt: "crea un componente StickerCard que reciba number, name, group y status como props"
+Resultado: el componente funcionó bien, solo cambié los colores de los estilos.
+Utilidad: útil.
 
-npm create vite@latest my-app -- --template react
-cd my-app
+Segundo commit
+---------------------
+=== Etapa 3 ===
+Prompt: "configura Tailwind CSS para un proyecto Vite con React"
+Resultado: se instaló correctamente y quedó funcionando con la integración oficial para Vite.
+Utilidad: útil.
 
-2. Instalar TailwindCSS y dependencias:
+=== Etapa 4 ===
+Prompt: "crea una interfaz base para una Pokédex con React y Tailwind"
+Resultado: se generó la estructura inicial del layout, componentes base y mocks locales; luego se adaptó a la necesidad del proyecto.
+Utilidad: útil.
 
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+=== Etapa 5 ===
+Prompt: "conecta la app a PokeAPI y muestra 12 Pokémon con imagen, id y nombre"
+Resultado: se implementó fetch nativo, carga de datos reales, loading y mensaje de error visible.
+Utilidad: útil.
 
-3. Configurar TailwindCSS:
-
-- En tailwind.config.js:
-  module.exports = {
-    content: [
-      './index.html',
-      './src/**/*.{js,ts,jsx,tsx}',
-    ],
-    theme: {
-      extend: {},
-    },
-    plugins: [],
-  }
-
-- En src/index.css (o el CSS global usado por Vite):
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
-4. Estructura sugerida de carpetas:
-
-src/
-  components/
-  hooks/
-  pages/
-  utils/
-
-5. Verificar que la app corre en local:
-
-npm install
-npm run dev
-
-Commit inicial sugerido:
-
-init: inicializa proyecto React con Vite y configura TailwindCSS
