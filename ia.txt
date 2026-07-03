@@ -34,3 +34,10 @@ Prompt: "implementa barra de búsqueda y filtrado local en una app React con Vit
 Resultado: se agregó searchTerm en App, el SearchBar quedó controlado por props, el filtrado funciona en tiempo real de forma case-insensitive, muestra todos los Pokémon cuando el input está vacío y muestra un mensaje de 'Sin resultados' cuando no hay coincidencias.
 Utilidad: útil.
 
+Cuarto commit
+---------------------
+=== Etapa 7 ===
+Prompt: "agrega favoritos funcionales en una app React con Vite y Tailwind"
+Resultado: se agregó el estado favorites en App, se implementó toggleFavorite para agregar y quitar favoritos, las tarjetas cambian visualmente cuando están marcadas, y el panel lateral muestra los favoritos con imagen, nombre e id.
+Utilidad: útil.
+

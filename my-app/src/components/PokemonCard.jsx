@@ -1,4 +1,4 @@
-export default function PokemonCard({ pokemon }) {
+export default function PokemonCard({ pokemon, isFavorite, onToggleFavorite }) {
   const { id, name, image } = pokemon
 
   return (
@@ -8,8 +8,15 @@ export default function PokemonCard({ pokemon }) {
       <h3 className="text-lg font-semibold capitalize text-slate-900">{name}</h3>
 
       <div className="mt-4 flex flex-wrap justify-center gap-2">
-        <button className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700">
-          Favorito
+        <button
+          onClick={() => onToggleFavorite(pokemon)}
+          className={`rounded-lg border px-3 py-2 text-sm font-medium ${
+            isFavorite
+              ? 'border-amber-400 bg-amber-500 text-white'
+              : 'border-amber-300 bg-amber-50 text-amber-700'
+          }`}
+        >
+          {isFavorite ? 'Quitar' : 'Favorito'}
         </button>
         <button className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700">
           Bloquear

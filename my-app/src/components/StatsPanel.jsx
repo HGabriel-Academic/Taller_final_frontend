@@ -1,6 +1,6 @@
-export default function StatsPanel({ pokemons = [] }) {
+export default function StatsPanel({ pokemons = [], favorites = [] }) {
   const total = pokemons.length
-  const favoritos = 0
+  const favoritos = favorites.length
   const bloqueados = 0
 
   return (

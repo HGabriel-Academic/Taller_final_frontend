@@ -9,6 +9,7 @@ import TeamSection from './components/TeamSection'
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [pokemons, setPokemons] = useState([])
+  const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -54,6 +55,18 @@ function App() {
     return pokemon.name.toLowerCase().includes(query)
   })
 
+  const toggleFavorite = (pokemon) => {
+    setFavorites((currentFavorites) => {
+      const isFavorite = currentFavorites.some((fav) => fav.id === pokemon.id)
+
+      if (isFavorite) {
+        return currentFavorites.filter((fav) => fav.id !== pokemon.id)
+      }
+
+      return [...currentFavorites, pokemon]
+    })
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
@@ -66,7 +79,7 @@ function App() {
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-              <StatsPanel pokemons={pokemons} />
+              <StatsPanel pokemons={pokemons} favorites={favorites} />
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
@@ -83,7 +96,7 @@ function App() {
               )}
 
               {!loading && !error && filteredPokemon.length > 0 && (
-                <PokemonList pokemons={filteredPokemon} />
+                <PokemonList pokemons={filteredPokemon} favorites={favorites} onToggleFavorite={toggleFavorite} />
               )}
 
               {!loading && !error && filteredPokemon.length === 0 && (
@@ -96,7 +109,7 @@ function App() {
 
           <aside className="w-full space-y-6 lg:w-80">
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-              <FavoritesPanel />
+              <FavoritesPanel favorites={favorites} onToggleFavorite={toggleFavorite} />
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
