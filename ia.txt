@@ -27,3 +27,10 @@ Prompt: "conecta la app a PokeAPI y muestra 12 Pokémon con imagen, id y nombre"
 Resultado: se implementó fetch nativo, carga de datos reales, loading y mensaje de error visible.
 Utilidad: útil.
 
+Tercer commit
+---------------------
+=== Etapa 6 ===
+Prompt: "implementa barra de búsqueda y filtrado local en una app React con Vite y Tailwind"
+Resultado: se agregó searchTerm en App, el SearchBar quedó controlado por props, el filtrado funciona en tiempo real de forma case-insensitive, muestra todos los Pokémon cuando el input está vacío y muestra un mensaje de 'Sin resultados' cuando no hay coincidencias.
+Utilidad: útil.
+

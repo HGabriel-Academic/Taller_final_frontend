@@ -7,7 +7,7 @@ import FavoritesPanel from './components/FavoritesPanel'
 import TeamSection from './components/TeamSection'
 
 function App() {
-  const [search, setSearch] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
   const [pokemons, setPokemons] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -46,6 +46,14 @@ function App() {
     loadPokemons()
   }, [])
 
+  const filteredPokemon = pokemons.filter((pokemon) => {
+    const query = searchTerm.trim().toLowerCase()
+
+    if (!query) return true
+
+    return pokemon.name.toLowerCase().includes(query)
+  })
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
@@ -54,7 +62,7 @@ function App() {
         <div className="flex flex-col gap-6 lg:flex-row">
           <main className="flex-1 space-y-6">
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-              <SearchBar value={search} onChange={setSearch} />
+              <SearchBar value={searchTerm} onChange={setSearchTerm} />
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
@@ -74,7 +82,15 @@ function App() {
                 </div>
               )}
 
-              {!loading && !error && <PokemonList pokemons={pokemons} />}
+              {!loading && !error && filteredPokemon.length > 0 && (
+                <PokemonList pokemons={filteredPokemon} />
+              )}
+
+              {!loading && !error && filteredPokemon.length === 0 && (
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+                  Sin resultados
+                </div>
+              )}
             </section>
           </main>
 
