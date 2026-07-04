@@ -41,3 +41,10 @@ Prompt: "agrega favoritos funcionales en una app React con Vite y Tailwind"
 Resultado: se agregó el estado favorites en App, se implementó toggleFavorite para agregar y quitar favoritos, las tarjetas cambian visualmente cuando están marcadas, y el panel lateral muestra los favoritos con imagen, nombre e id.
 Utilidad: útil.
 
+Quinto commit
+---------------------
+=== Etapa 8 ===
+Prompt: "agrega bloqueo y desbloqueo de Pokémon en una app React con Vite y Tailwind"
+Resultado: se agregó el estado blocked en App, los Pokémon bloqueados se excluyen del listado principal y de la búsqueda, se eliminan automáticamente de favoritos al bloquearse, y existe una sección visible para desbloquearlos desde el panel lateral.
+Utilidad: útil.
+

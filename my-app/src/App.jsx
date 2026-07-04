@@ -10,6 +10,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [pokemons, setPokemons] = useState([])
   const [favorites, setFavorites] = useState([])
+  const [blocked, setBlocked] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -48,6 +49,10 @@ function App() {
   }, [])
 
   const filteredPokemon = pokemons.filter((pokemon) => {
+    const isBlocked = blocked.some((item) => item.id === pokemon.id)
+
+    if (isBlocked) return false
+
     const query = searchTerm.trim().toLowerCase()
 
     if (!query) return true
@@ -67,6 +72,20 @@ function App() {
     })
   }
 
+  const toggleBlocked = (pokemon) => {
+    setBlocked((currentBlocked) => {
+      const isBlocked = currentBlocked.some((item) => item.id === pokemon.id)
+
+      if (isBlocked) {
+        return currentBlocked.filter((item) => item.id !== pokemon.id)
+      }
+
+      setFavorites((currentFavorites) => currentFavorites.filter((fav) => fav.id !== pokemon.id))
+
+      return [...currentBlocked, pokemon]
+    })
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
@@ -79,7 +98,7 @@ function App() {
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-              <StatsPanel pokemons={pokemons} favorites={favorites} />
+              <StatsPanel pokemons={pokemons} favorites={favorites} blocked={blocked} />
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
@@ -96,7 +115,13 @@ function App() {
               )}
 
               {!loading && !error && filteredPokemon.length > 0 && (
-                <PokemonList pokemons={filteredPokemon} favorites={favorites} onToggleFavorite={toggleFavorite} />
+                <PokemonList
+                  pokemons={filteredPokemon}
+                  favorites={favorites}
+                  blocked={blocked}
+                  onToggleFavorite={toggleFavorite}
+                  onToggleBlocked={toggleBlocked}
+                />
               )}
 
               {!loading && !error && filteredPokemon.length === 0 && (
@@ -110,6 +135,36 @@ function App() {
           <aside className="w-full space-y-6 lg:w-80">
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
               <FavoritesPanel favorites={favorites} onToggleFavorite={toggleFavorite} />
+            </section>
+
+            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+              <div>
+                <h2 className="mb-3 text-lg font-semibold text-slate-900">Bloqueados</h2>
+
+                {blocked.length === 0 ? (
+                  <p className="text-sm text-slate-500">No hay Pokémon bloqueados.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {blocked.map((pokemon) => (
+                      <div key={pokemon.id} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-3">
+                        <div className="flex items-center gap-3">
+                          <img src={pokemon.image} alt={pokemon.name} className="h-10 w-10 object-contain" />
+                          <div>
+                            <p className="text-sm font-semibold capitalize text-slate-900">{pokemon.name}</p>
+                            <p className="text-xs text-slate-500">#{pokemon.id}</p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => toggleBlocked(pokemon)}
+                          className="rounded-lg border border-emerald-300 bg-white px-2 py-1 text-xs font-medium text-emerald-600"
+                        >
+                          Desbloquear
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">

@@ -1,4 +1,4 @@
-export default function PokemonCard({ pokemon, isFavorite, onToggleFavorite }) {
+export default function PokemonCard({ pokemon, isFavorite, isBlocked, onToggleFavorite, onToggleBlocked }) {
   const { id, name, image } = pokemon
 
   return (
@@ -18,8 +18,15 @@ export default function PokemonCard({ pokemon, isFavorite, onToggleFavorite }) {
         >
           {isFavorite ? 'Quitar' : 'Favorito'}
         </button>
-        <button className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700">
-          Bloquear
+        <button
+          onClick={() => onToggleBlocked(pokemon)}
+          className={`rounded-lg border px-3 py-2 text-sm font-medium ${
+            isBlocked
+              ? 'border-emerald-400 bg-emerald-500 text-white'
+              : 'border-slate-300 bg-white text-slate-700'
+          }`}
+        >
+          {isBlocked ? 'Desbloquear' : 'Bloquear'}
         </button>
       </div>
     </article>
