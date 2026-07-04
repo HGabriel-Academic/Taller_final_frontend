@@ -5,12 +5,13 @@ import StatsPanel from './components/StatsPanel'
 import PokemonList from './components/PokemonList'
 import FavoritesPanel from './components/FavoritesPanel'
 import TeamSection from './components/TeamSection'
+import { useLocalStorage } from './hooks/useLocalStorage'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [pokemons, setPokemons] = useState([])
-  const [favorites, setFavorites] = useState([])
-  const [blocked, setBlocked] = useState([])
+  const [favorites, setFavorites] = useLocalStorage('favorites', [])
+  const [blocked, setBlocked] = useLocalStorage('blocked', [])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
