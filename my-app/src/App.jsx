@@ -88,21 +88,21 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(248,113,113,0.16),_transparent_35%),linear-gradient(135deg,_#f8fafc_0%,_#fff7ed_100%)] text-slate-800">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <Header />
 
         <div className="flex flex-col gap-6 lg:flex-row">
           <main className="flex-1 space-y-6">
-            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+            <section className="rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur sm:p-6">
               <SearchBar value={searchTerm} onChange={setSearchTerm} />
             </section>
 
-            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+            <section className="rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur sm:p-6">
               <StatsPanel pokemons={pokemons} favorites={favorites} blocked={blocked} />
             </section>
 
-            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+            <section className="rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur sm:p-6">
               {loading && (
                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
                   Cargando Pokémon...
@@ -134,16 +134,18 @@ function App() {
           </main>
 
           <aside className="w-full space-y-6 lg:w-80">
-            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+            <section className="rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur sm:p-6">
               <FavoritesPanel favorites={favorites} onToggleFavorite={toggleFavorite} />
             </section>
 
-            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-              <div>
-                <h2 className="mb-3 text-lg font-semibold text-slate-900">Bloqueados</h2>
+            <section className="rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur sm:p-6">
+              <div className="space-y-4">
+                <h2 className="text-lg font-semibold text-slate-900">Bloqueados</h2>
 
                 {blocked.length === 0 ? (
-                  <p className="text-sm text-slate-500">No hay Pokémon bloqueados.</p>
+                  <p className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-3 text-sm text-slate-500">
+                    No hay Pokémon bloqueados.
+                  </p>
                 ) : (
                   <div className="space-y-3">
                     {blocked.map((pokemon) => (
@@ -156,6 +158,7 @@ function App() {
                           </div>
                         </div>
                         <button
+                          type="button"
                           onClick={() => toggleBlocked(pokemon)}
                           className="rounded-lg border border-emerald-300 bg-white px-2 py-1 text-xs font-medium text-emerald-600"
                         >
@@ -168,7 +171,7 @@ function App() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+            <section className="rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur sm:p-6">
               <TeamSection />
             </section>
           </aside>

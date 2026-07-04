@@ -22,3 +22,8 @@ body {
 #root {
   min-height: 100vh;
 }
+
+::selection {
+  background-color: rgba(239, 68, 68, 0.25);
+  color: #111827;
+}
