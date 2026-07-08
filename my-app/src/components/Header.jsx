@@ -13,8 +13,8 @@ export default function Header() {
         </div>
 
         <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-slate-100 backdrop-blur">
-          <p className="font-semibold">React + Vite + Tailwind</p>
-          <p className="text-xs text-slate-300">Diseño final · Lista dinámica</p>
+          <p className="font-semibold">Gabriel Benavides Ramirez</p>
+          <p className="text-xs text-slate-300">Taller final FrontEnd · D-IEI-N3-P2-C1/</p>
         </div>
       </div>
     </header>

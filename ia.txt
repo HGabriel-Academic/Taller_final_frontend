@@ -55,3 +55,10 @@ Prompt: "agrega persistencia en localStorage para favoritos y bloqueados con un 
 Resultado: se creó el hook useLocalStorage para leer y guardar datos en localStorage con JSON.parse/JSON.stringify, se usó para favoritos y bloqueados, y al recargar la página los datos se restauran correctamente.
 Utilidad: útil.
 
+Séptimo commit
+---------------------
+=== Etapa 10 ===
+Prompt: "mejora la interfaz de la Pokédex con filtros, carga aleatoria de Pokémon, bloqueo de tipos, autocompletado en la búsqueda y modal con información detallada"
+Resultado: se aplicó una mejora visual general del layout, se agregó un botón para cargar nuevos Pokémon aleatorios, los favoritos desaparecen automáticamente del listado disponible y quedan solo en Favoritos, se implementó un selector desplegable para bloquear tipos, el filtro de tipos en la sección disponible ahora permite múltiples selecciones mediante un dropdown con búsqueda, la barra de búsqueda muestra sugerencias de autocompletado y al hacer clic en la imagen de un Pokémon disponible se abre una tarjeta flotante con descripción, habilidades, estadísticas, movimientos, ubicaciones y evoluciones.
+Utilidad: útil.
+
