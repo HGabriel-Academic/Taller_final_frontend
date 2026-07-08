@@ -23,6 +23,12 @@ export default function SearchBar({ value, onChange, suggestions = [], onSelectS
           id="pokemon-search"
           value={value}
           onChange={(event) => onChange(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault()
+              onSelectSuggestion(value.trim())
+            }
+          }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setTimeout(() => setIsFocused(false), 150)}
           placeholder="Escribe un nombre..."

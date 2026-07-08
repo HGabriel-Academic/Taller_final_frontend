@@ -121,6 +121,14 @@ function App() {
 
   const filteredPokemon = pokemons.filter((pokemon) => {
     const query = searchTerm.trim().toLowerCase()
+    const blockedIds = new Set(blocked.map((b) => b.id))
+    const blockedTypeSet = new Set(blockedTypes)
+
+    // Excluir si está bloqueado explícitamente
+    if (blockedIds.has(pokemon.id)) return false
+
+    // Excluir si tiene un tipo bloqueado
+    if (pokemon.types && pokemon.types.some((t) => blockedTypeSet.has(t))) return false
 
     if (!query) return true
 
@@ -176,6 +184,80 @@ function App() {
     setBlockedTypes((currentBlockedTypes) => currentBlockedTypes.filter((type) => type !== typeName))
   }
 
+  const handleSearchSelect = async (term) => {
+    const query = term.trim().toLowerCase()
+    setSearchTerm(term)
+
+    if (!query) {
+      // restore normal pool
+      loadPokemons(12, selectedTypeFilters, favorites, blocked, blockedTypes)
+      return
+    }
+
+    // If the pokemon is already in the current list, nothing else to do
+    const existing = pokemons.find((p) => p.name.toLowerCase() === query)
+    if (existing) return
+
+    // Prevent showing a pokemon that has been explicitly blocked by name
+    if (blocked.some((b) => b.name.toLowerCase() === query)) {
+      setPokemons([])
+      setError('El Pokémon está bloqueado')
+      return
+    }
+
+    setLoading(true)
+    setError('')
+
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
+      if (!response.ok) {
+        setPokemons([])
+        setError('No se encontró el Pokémon')
+        return
+      }
+
+      const detailData = await response.json()
+
+      // Check blocked types
+      const pokemonTypesFromApi = detailData.types.map((t) => t.type.name)
+      if (blockedTypes.some((bt) => pokemonTypesFromApi.includes(bt))) {
+        setPokemons([])
+        setError('El Pokémon está bloqueado por tipo')
+        return
+      }
+
+      // Check blocked by id after fetching
+      if (blocked.some((b) => b.id === detailData.id)) {
+        setPokemons([])
+        setError('El Pokémon está bloqueado')
+        return
+      }
+
+      const pokemonObj = {
+        id: detailData.id,
+        name: detailData.name,
+        image: detailData.sprites.other['official-artwork'].front_default,
+        types: detailData.types.map((typeItem) => typeItem.type.name),
+        height: detailData.height,
+        weight: detailData.weight,
+        abilities: detailData.abilities.map((ability) => ability.ability.name),
+        stats: detailData.stats.map((stat) => ({ name: stat.stat.name, value: stat.base_stat })),
+        moves: detailData.moves.slice(0, 8).map((move) => move.move.name),
+        detailUrl: detailData.species.url,
+        speciesUrl: detailData.species.url,
+        locationsUrl: detailData.location_area_encounters,
+      }
+
+      // show the searched pokemon even if it's not in the random pool
+      setPokemons([pokemonObj])
+    } catch (err) {
+      setError(err.message || 'Ocurrió un error al buscar el Pokémon')
+      setPokemons([])
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(248,113,113,0.16),_transparent_35%),linear-gradient(135deg,_#f8fafc_0%,_#fff7ed_100%)] text-slate-800">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
@@ -188,7 +270,7 @@ function App() {
                 value={searchTerm}
                 onChange={setSearchTerm}
                 suggestions={pokemonNames}
-                onSelectSuggestion={setSearchTerm}
+                onSelectSuggestion={handleSearchSelect}
               />
             </section>
 
